@@ -32,27 +32,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Podman
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y podman
+      - name: Build Image
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: tsidp
+          tags: latest ${{ env.VERSION }}
+          containerfiles: |
+            ./Containerfile
 
-      - name: Log in to GitHub Container Registry
-        run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | podman login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Push To ghcr.io
+        id: push-to-ghcr
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Container image
-        run: |
-          podman build -t ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:${{ env.VERSION }} .
-
-      - name: Tag Container Image with Latest
-        run: |
-          podman tag ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:${{ env.VERSION }} ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:latest
-
-      - name: Push Container image with ${{ env.VERSION }} Tag
-        run: |
-          podman push ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:${{ env.VERSION }}
-
-      - name: Push Container image with Latest Tag
-        run: |
-          podman push ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:latest
+      - name: Print image url
+        run: echo "Image pushed to ${{ steps.push-to-ghcr.outputs.registry-paths }}"
