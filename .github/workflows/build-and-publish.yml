@@ -6,11 +6,13 @@ on:
       - main  # Trigger on push to the main branch
     paths-ignore:
       - 'compose.yml'
+      - 'README.md'
   pull_request:
     branches:
       - main  # Trigger on PR to the main branch
     paths-ignore:
       - 'compose.yml'
+      - 'README.md'
 
 jobs:
   build:
