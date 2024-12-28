@@ -1,0 +1,18 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "automerge": true,
+  "automergeType": "branch",
+  "dependencyDashboard": true,
+  "timezone": "UTC",
+  "packageRules": [
+    {
+      "matchPackageNames": ["tailscale"],
+      "enabled": true,
+      "updateTypes": ["major", "minor", "patch"],
+      "registryUrls": ["https://github.com/tailscale/tailscale"]
+    }
+  ]
+}
