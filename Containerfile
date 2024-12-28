@@ -25,7 +25,6 @@ FROM docker.io/alpine:3.21.0
 WORKDIR /config/tsidp
 
 # Set environment variables
-ENV HOME=.
 ENV TS_HOSTNAME=tsidp
 ENV TS_AUTHKEY=
 ENV TS_STATE_DIR=/config/tsidp
