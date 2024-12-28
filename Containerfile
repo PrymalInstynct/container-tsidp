@@ -11,7 +11,8 @@ ENV GOARCH=amd64
 WORKDIR /go/src
 
 # Clone the repository
-RUN git clone --depth 1 --branch v1.78.3 https://github.com/tailscale/tailscale.git .
+RUN curl -fsSL "https://github.com/tailscale/tailscale/archive/refs/tags/v1.78.1.tar.gz" \
+    | tar xzf - -C /go/src --strip-components=1
 
 # Navigate to the directory containing the source code and build it
 WORKDIR /go/src/cmd/tsidp

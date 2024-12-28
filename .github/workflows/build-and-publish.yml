@@ -10,39 +10,37 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04  # Use the latest Ubuntu runner
+    runs-on: ubuntu-24.04
 
     permissions:
       contents: read
       packages: write
 
     steps:
-      # Step 1: Set Repo Owner to all Lowercase 
       - name: Lowercase repository owner
         shell: bash
         run: echo "LOWERCASE_REPO_OWNER=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_ENV
 
-      # Step 2: Check out the code
+      - name: Identify Latest Release Tag of Tailscale GitHub Project
+        shell: bash
+        run: echo "VERSION="$(curl -sX GET "https://api.github.com/repos/tailscale/tailscale/releases/latest" | jq --raw-output '.tag_name' 2>/dev/null)" >> $GITHUB_ENV
+
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 3: Install Podman
       - name: Install Podman
         run: |
           sudo apt-get update
           sudo apt-get install -y podman
 
-      # Step 4: Log in to GitHub Container Registry (GHCR)
       - name: Log in to GitHub Container Registry
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | podman login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      # Step 5: Build the container image using Podman
       - name: Build Container image
         run: |
-          podman build -t ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:${{ github.sha }} .
+          podman build -t ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:${{ env.VERSION }} .
 
-      # Step 6: Push the container image to GHCR
       - name: Push Container image
         run: |
-          podman push ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:${{ github.sha }}
+          podman push ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:${{ env.VERSION }}
