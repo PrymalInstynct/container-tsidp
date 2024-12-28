@@ -4,6 +4,7 @@ Container Image for the Tailscale [tsidp](https://github.com/tailscale/tailscale
 ## Environment Variables
 | Variable               | Value         | Note                                                                                                     |
 |------------------------|---------------|----------------------------------------------------------------------------------------------------------|
+| HOME                   | .             | Required to get tsidp to create the statefiles in the correct location                                   |
 | TS_AUTHKEY             |               | Set this Environment Variable via `compose.yml`                                                          |
 | TS_HOSTNAME            | tsidp         | Hostname for the instance of `tsidp` <br> (Bug causing this variable to not be utilized when app starts) |
 | TS_STATE_DIR           | /config/tsidp | Location of the tailscale statefiles and logs                                                            |
