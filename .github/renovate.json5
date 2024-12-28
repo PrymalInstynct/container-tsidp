@@ -11,10 +11,5 @@
       "extractVersion": "tags\/(?<version>v[\\d.]+).tar.gz",
       "enabled": true
     }
-  ],
-  "githubRelease": {
-    "commitMessagePrefix": "chore(deps): ",
-    "includePrereleases": false,
-    "labels": ["dependencies"]
-  }
+  ]
 }
