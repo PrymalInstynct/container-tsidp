@@ -1,0 +1,11 @@
+services:
+  tailscale-tsidp:
+    container_name: tailscale-tsidp
+    image: localhost/tsidp:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    environment:
+      - TS_AUTHKEY=
+    volumes:
+      - ./config:/config/tsidp

@@ -1,0 +1,39 @@
+name: Build and Publish Container Image
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger on PR to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+      # Step 1: Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Install Podman
+      - name: Install Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y podman
+
+      # Step 3: Log in to GitHub Container Registry (GHCR)
+      - name: Log in to GitHub Container Registry
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | podman login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      # Step 4: Build the container image using Podman
+      - name: Build Container image
+        run: |
+          podman build -t ghcr.io/${{ github.repository }}/tsidp:${{ github.sha }} .
+
+      # Step 5: Push the container image to GHCR
+      - name: Push Container image
+        run: |
+          podman push ghcr.io/${{ github.repository }}/tsidp:${{ github.sha }}
