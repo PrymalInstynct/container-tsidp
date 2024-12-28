@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - main  # Trigger on push to the main branch
+    paths-ignore:
+      - 'compose.yml'
   pull_request:
     branches:
       - main  # Trigger on PR to the main branch
+    paths-ignore:
+      - 'compose.yml'
 
 jobs:
   build:
