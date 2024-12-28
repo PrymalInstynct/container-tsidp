@@ -51,4 +51,4 @@ jobs:
 
       - name: Push Container image with Latest Tag
         run: |
-          podman push ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:${{ env.VERSION }}
+          podman push ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:latest
