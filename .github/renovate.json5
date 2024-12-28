@@ -6,9 +6,15 @@
   "packageRules": [
     {
       "matchDatasources": ["github-releases"],
-      "matchPackageNames": ["tailscale"],
-      "registryUrl": ["https://github.com/tailscale/tailscale"],
-      "automerge": true
+      "matchPackageNames": ["tailscale/tailscale"],
+      "fileMatch": ["Containerfile"],
+      "extractVersion": "tags\/(?<version>v[\\d.]+).tar.gz",
+      "enabled": true
     }
-  ]
+  ],
+  "githubRelease": {
+    "commitMessagePrefix": "chore(deps): ",
+    "includePrereleases": false,
+    "labels": ["dependencies"]
+  }
 }
