@@ -45,6 +45,10 @@ jobs:
         run: |
           podman build -t ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:${{ env.VERSION }} .
 
+      - name: Tag Container Image with Latest
+        run: |
+          podman tag ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:${{ env.VERSION }} ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:latest
+
       - name: Push Container image with ${{ env.VERSION }} Tag
         run: |
           podman push ghcr.io/${{ env.LOWERCASE_REPO_OWNER }}/container-tsidp/tsidp:${{ env.VERSION }}
