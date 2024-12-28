@@ -8,7 +8,7 @@
       "matchDatasources": ["github-releases"],
       "matchPackageNames": ["tailscale/tailscale"],
       "fileMatch": ["Containerfile"],
-      "extractVersion": "tarbal\/(?<version>v\\d.)+",
+      "extractVersion": "tarball\/(?<version>v\\d.)+",
       "enabled": true
     }
   ]
