@@ -7,11 +7,12 @@ ENV CGO_ENABLED=0
 ENV GOOS=linux
 ENV GOARCH=amd64
 
-# Directory to clone source inside the container
+# Directory to place source inside the container
 WORKDIR /go/src
 
-# Clone the repository
-RUN curl -fsSL "https://api.github.com/repos/tailscale/tailscale/tarball/v1.78.1" \
+# Identify the latest release of tailscale, download the source code, and extract it to the /go/src directory
+RUN TS_VERSION="$(curl -sX GET "https://api.github.com/repos/tailscale/tailscale/releases/latest" | jq --raw-output '.tag_name' 2>/dev/null) \
+    && curl -fsSL "https://api.github.com/repos/tailscale/tailscale/tarball/$TS_VERSION" \
     | tar xzf - -C /go/src --strip-components=1
 
 # Navigate to the directory containing the source code and build it
