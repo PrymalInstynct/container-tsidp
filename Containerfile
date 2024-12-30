@@ -11,7 +11,7 @@ ENV GOARCH=amd64
 WORKDIR /go/src
 
 # Identify the latest release of tailscale, download the source code, and extract it to the /go/src directory
-RUN TS_VERSION="$(curl -sX GET "https://api.github.com/repos/tailscale/tailscale/releases/latest" | jq --raw-output '.tag_name' 2>/dev/null) \
+RUN TS_VERSION="$(curl -sX GET "https://api.github.com/repos/tailscale/tailscale/releases/latest" | jq --raw-output '.tag_name' 2>/dev/null)" \
     && curl -fsSL "https://api.github.com/repos/tailscale/tailscale/tarball/$TS_VERSION" \
     | tar xzf - -C /go/src --strip-components=1
 
