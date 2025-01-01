@@ -15,8 +15,6 @@ on:
       - 'compose.yml'
       - 'README.md'
       - '.github/renovate.json'
-  schedule:
-    - cron: 37 4 * * 2
 
 jobs:
   build:
