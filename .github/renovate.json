@@ -1,6 +1,16 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    ":timezone(America/Denver)"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["Containerfile"],
+      "matchStrings": ["tailscale\/tarball\/(?<currentValue>v\\d\\.\\d+\\.\\d?)"],
+      "depNameTemplate": "tailscale/tailscale",
+      "datasourceTemplate": "github-releases"
+    }
   ]
 }
