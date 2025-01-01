@@ -8,13 +8,6 @@ on:
       - 'compose.yml'
       - 'README.md'
       - '.github/renovate.json'
-  pull_request:
-    branches:
-      - main  # Trigger on PR to the main branch
-    paths-ignore:
-      - 'compose.yml'
-      - 'README.md'
-      - '.github/renovate.json'
 
 jobs:
   build:

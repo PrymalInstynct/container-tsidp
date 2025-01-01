@@ -10,7 +10,8 @@
       "fileMatch": ["Containerfile"],
       "matchStrings": ["tailscale\/tarball\/(?<currentValue>v\\d\\.\\d+\\.\\d?)"],
       "depNameTemplate": "tailscale/tailscale",
-      "datasourceTemplate": "github-releases"
+      "datasourceTemplate": "github-releases",
+      "automerge": true
     }
   ]
 }
