@@ -10,8 +10,35 @@
       "fileMatch": ["Containerfile"],
       "matchStrings": ["tailscale\/tarball\/(?<currentValue>v\\d\\.\\d+\\.\\d?)"],
       "depNameTemplate": "tailscale/tailscale",
-      "datasourceTemplate": "github-releases",
-      "autoMerge": true
+      "datasourceTemplate": "github-releases"
+    }
+  ],
+  "packageRules": [
+    {
+      "addLabels": ["renovate/tailscale", "type/major"],
+      "commitMessageExtra": " ( {{currentVersion}} → {{newVersion}} )",
+      "commitMessagePrefix": "feat({{parentDir}})!: ",
+      "commitMessageTopic": "{{depName}}",
+      "matchFileNames": ["Containerfile"],
+      "matchUpdateTypes": ["major"]
+    },
+    {
+      "addLabels": ["renovate/tailscale", "type/minor"],
+      "commitMessageExtra": " ( {{currentVersion}} → {{newVersion}} )",
+      "commitMessagePrefix": "feat({{parentDir}})!: ",
+      "commitMessageTopic": "{{depName}}",
+      "matchFileNames": ["Containerfile"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": true
+    },
+    {
+      "addLabels": ["renovate/tailscale", "type/patch"],
+      "commitMessageExtra": " ( {{currentVersion}} → {{newVersion}} )",
+      "commitMessagePrefix": "feat({{parentDir}})!: ",
+      "commitMessageTopic": "{{depName}}",
+      "matchFileNames": ["Containerfile"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
     }
   ]
 }
