@@ -19,7 +19,7 @@ WORKDIR /go/src/cmd/tsidp
 RUN go build -o tsidp .
 
 # Stage 2: Create Runtime Image
-FROM docker.io/alpine:3.21.0
+FROM docker.io/alpine:3.21.1
 
 # Set Working Directory
 WORKDIR /config/tsidp
