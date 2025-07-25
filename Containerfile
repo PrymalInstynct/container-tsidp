@@ -11,7 +11,7 @@ ENV GOARCH=amd64
 WORKDIR /go/src
 
 # Identify the latest release of tailscale, download the source code, and extract it to the /go/src directory
-RUN curl -fsSL "https://api.github.com/repos/tailscale/tailscale/tarball/v1.84.2" \
+RUN curl -fsSL "https://api.github.com/repos/tailscale/tailscale/tarball/v1.86.0" \
     | tar xzf - -C /go/src --strip-components=1
 
 # Navigate to the directory containing the source code and build it
