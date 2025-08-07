@@ -1,5 +1,5 @@
 # Stage 1: Build the Go application
-FROM docker.io/golang:1.24.5 AS builder
+FROM docker.io/golang:1.24.6 AS builder
 
 # Set environment variables
 ENV GO111MODULE=on
