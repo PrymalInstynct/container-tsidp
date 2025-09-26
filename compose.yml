@@ -1,7 +1,7 @@
 services:
   tailscale-tsidp:
     container_name: tailscale-tsidp
-    image: ghcr.io/prymalinstynct/tsidp:v1.88.1
+    image: ghcr.io/prymalinstynct/tsidp:v1.88.3
     restart: unless-stopped
     logging:
       driver: json-file
